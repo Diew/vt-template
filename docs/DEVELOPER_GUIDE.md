@@ -91,12 +91,8 @@ Use action-oriented names that reflect what is fetched or mutated.
 ---
 
 ## ⚡ Performance Notes
-- SSOT stays in the data model; presentation may cache repeated work, but it must not change logic.
-- `fetchGames()` and `fetchRelationships()` load once per page session.
-- `fetchCharacters()` reuses cached results when the requested `entityFilter` is already loaded.
-- `stats-renderer.ts` caches avatar HTML and section HTML.
-- These caches do not change processor logic, filter results, or data pools.
-- `docs/FILTER_SYSTEM.md` is the filter reference; do not duplicate stats/filter logic here.
+
+Performance optimization guidelines will be added here when needed.
 
 ---
 
