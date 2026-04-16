@@ -1,34 +1,80 @@
-# Vite + TypeScript Template (TDD Focused)
+# [Project Name] - Agent Context
 
-## Project Setup
-- **Version**: 1.0.0
-- **Template**: Vanilla TypeScript
-- **Build Tool**: Vite (Optimized OutDir)
-- **Testing**: Vitest + JSDOM + Testing Library (Unified Config)
-- **Styling**: Vanilla CSS + Modern CSS Reset
+Documentation for AI Assistant regarding project standards and current state.
 
-## Development Strategy
-- **TDD (Test-Driven Development)**: 
-  - Write tests in `src/*.test.ts` before implementation.
-  - Commands: `npm test` for watch mode, `npm test -- --run` for single execution.
-- **Token Efficiency**: 
-  - Unified configuration in `vite.config.ts`.
-  - Minimalist style and logic to reduce token weight.
-  - Descriptive naming to assist AI context.
+## 🛡️ Project Setup
+- **Project Name**: [Project Name]
+- **Version**: [x.y.z]
+- **Framework**: Vite + TypeScript
+- **Testing**: Vitest + JSDOM
+- **Styling**: Vanilla CSS + CSS Variable System
+<!-- Replace Framework / Testing / Styling above if the stack differs. -->
 
-## Technical Milestones
-- [x] Initial Scaffolding (Vite + TS)
-- [x] Template Cleanup (Minimal State)
-- [x] Vitest & Vite Unified Configuration
-- [x] JSDOM & Testing Library Integration
-- [x] Modern CSS Reset (Josh Comeau base)
-- [x] Optimized Production Build Config
-- [x] Sample TDD Test Suite (Logic & DOM)
-- [x] Dev Server Ready
+## 📚 Documentation Priority
+- `docs/` is the source of truth for behavior, architecture, and implementation rules.
+- Keep `agent.md` aligned with `docs/` and treat it as supporting context.
+- See `docs/DEVELOPER_GUIDE.md` for naming conventions and coding standards.
 
-## Commands
-- `npm install`: Install project dependencies.
-- `npm run dev`: Start local development server.
-- `npm test`: Run Vitest in watch mode.
-- `npm run build`: Build for production (outputs to `/dist`).
-- `npm run preview`: Preview the production build locally.
+## 🌐 Language Policy (MANDATORY)
+- All docs, code comments, and agent context must be written in **English**.
+
+## 📐 Development Strategy (MANDATORY)
+- **TDD**: write or update tests before or during implementation.
+- **Major changes**: run automated validation for structural changes.
+- **Token Efficiency**: keep context modular; use English in internal docs and agent context. Prefer minimalist, focused code to reduce token weight.
+
+### TDD Decision Rule
+- Use TDD for any change that can affect data, routing, rendering output, or business logic.
+- Skip heavy TDD for docs, copy, rename, formatting, or purely cosmetic edits.
+- If behavior might change, add or update tests first.
+
+## ⚠️ AI Technical Governance (CRITICAL)
+- **Build safety**: `npm run build` runs `tsc && vite build` — `tsc` must not process `*.test.ts` files.
+- **TS config**: keep `"exclude": ["src/**/*.test.ts"]` in `tsconfig.json`.
+- **Shell constraints**: use bash/zsh by default. Document any OS-specific restrictions here if the team uses Windows/PowerShell.
+- **Test isolation**: Vitest handles test runtime; do not force `tsc` to support Node-only test APIs.
+
+## 🗣️ Response Style (CRITICAL)
+- **Short and direct by default.** No intro, no recap, no outro unless asked.
+- **Substance only.** No filler, no explanation of things not asked about.
+- Answer the question. Stop. Do not pad.
+- Use Markdown only when it genuinely helps (tables, code blocks).
+- When unsure, ask **one** clarifying question — no assumptions.
+
+## ❌ Common Mistakes to Avoid
+- Do not refactor working code unless explicitly asked.
+- Do not change unrelated files in the same edit.
+- Do not assume; confirm before destructive actions (delete, overwrite).
+- **Naming**: All names must be self-documenting — a reader should understand what it does without reading the implementation.
+
+## 🛑 FAILURE CONDITION (CRITICAL)
+- If any rule cannot be followed: **STOP immediately**.
+- Explain why clearly.
+- WAIT for explicit instruction before proceeding.
+
+## ⚙️ Git Operations (MANDATORY)
+- No push or commit without explicit user approval per action.
+- Check version bump requirements before committing changes.
+
+## 🛡️ Pre-Commit Protocol
+1. **TEST**: `npm test -- --run`.
+2. **VERSION**: verify if version bump is required; run `npm run bump <x.y.z>` if needed.
+3. **DOCS**: write release notes in `CHANGELOG.md`. Update `agent.md` if policies or milestones change. On version change, run `npm run bump -- <x.y.z>`.
+4. **BUILD**: `npm run build`.
+5. **CLEAN**: remove debug logs and temporary scratch files.
+
+## 🏁 Milestones
+<!-- Check off items as they are completed. Add or remove items per project. -->
+- [ ] Project scaffolding
+- [ ] Test runner configured
+- [ ] CI/CD pipeline set up
+- [ ] CSS / design system baseline
+- [ ] Production build verified
+- [ ] [Add project-specific milestones here]
+
+## 🛠️ Commands
+<!-- Defaults assume Vite + TS. Replace if the stack differs. -->
+- `npm run dev`: local development server.
+- `npm test`: run tests.
+- `npm run build`: production build.
+- `npm run bump -- <x.y.z>`: sync version across `package.json`, `agent.md`, `README.md`, `docs/DEVELOPER_GUIDE.md`, and `CHANGELOG.md`.
