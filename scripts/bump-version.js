@@ -16,7 +16,8 @@ const filesToUpdate = [
     'package.json',
     'agent.md',
     'README.md',
-    'docs/DEVELOPER_GUIDE.md',
+    'docs/GUIDE_developer.md',
+    'docs/STANDARDS_ui-visual.md',
     'CHANGELOG.md'
 ];
 
@@ -38,7 +39,7 @@ filesToUpdate.forEach(file => {
             /\[x\.y\.z\]/g,
             version
         );
-    } else if (file === 'docs/DEVELOPER_GUIDE.md') {
+    } else if (file === 'docs/GUIDE_developer.md') {
         const footerMatch = content.match(/Updated for v\[x\.y\.z\] - \d{4}-\d{2}-\d{2}(\*|$)/);
         if (footerMatch) {
             const date = new Date().toISOString().split('T')[0];
@@ -47,6 +48,9 @@ filesToUpdate.forEach(file => {
                 `Updated for v${version} - ${date}`
             );
         }
+    } else if (file === 'docs/STANDARDS_ui-visual.md') {
+        content = content.replace(/\[x\.y\.z\]/g, version);
+        content = content.replace(/\[YYYY-MM-DD\]/g, new Date().toISOString().split('T')[0]);
     } else if (file === 'CHANGELOG.md') {
         const today = new Date().toISOString().split('T')[0];
         const changelogHeader = `## [${version}] - ${today}\n\n`;

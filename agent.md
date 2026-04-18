@@ -2,9 +2,36 @@
 
 Documentation for AI Assistant regarding project standards and current state.
 
+---
+
+## 📌 MODE DETECTION (AUTO)
+
+> Read this section FIRST. It determines how I should behave.
+
+### Template Mode (default)
+Triggered when `package.json.name` equals `"vt-template"` OR any file contains `[Project Name]` placeholder.
+
+**Behavior:**
+- I am working on the **template itself**.
+- All development, testing, refactoring is normal.
+- Do NOT ask the user to rename anything.
+- Treat `[Project Name]`, `[x.y.z]` as intentional template markers.
+
+### Project Mode
+Triggered when `package.json.name` is something OTHER than `"vt-template"` AND no `[Project Name]` placeholders exist.
+
+**Behavior:**
+- I am working on a **real project** cloned from this template.
+- Proceed with normal development tasks.
+- If the user just cloned and hasn't renamed yet, suggest: `node scripts/bootstrap.js "Project Name" 1.0.0`.
+
+**Current Mode:** `TEMPLATE MODE` (detected)
+
+---
+
 ## 🛡️ Project Setup
 - **Project Name**: [Project Name]
-- **Version**: [x.y.z]
+- **Version**: 1.1.1
 - **Framework**: Vite + TypeScript
 - **Testing**: Vitest + JSDOM
 - **Styling**: Vanilla CSS + CSS Variable System
@@ -13,7 +40,7 @@ Documentation for AI Assistant regarding project standards and current state.
 ## 📚 Documentation Priority
 - `docs/` is the source of truth for behavior, architecture, and implementation rules.
 - Keep `agent.md` aligned with `docs/` and treat it as supporting context.
-- See `docs/DEVELOPER_GUIDE.md` for naming conventions and coding standards.
+- See `docs/GUIDE_developer.md` for naming conventions and coding standards.
 
 ## 🌐 Language Policy (MANDATORY)
 - All docs, code comments, and agent context must be written in **English**.
@@ -77,4 +104,12 @@ Documentation for AI Assistant regarding project standards and current state.
 - `npm run dev`: local development server.
 - `npm test`: run tests.
 - `npm run build`: production build.
-- `npm run bump -- <x.y.z>`: sync version across `package.json`, `agent.md`, `README.md`, `docs/DEVELOPER_GUIDE.md`, and `CHANGELOG.md`.
+- `npm run bump -- <x.y.z>`: sync version across `package.json`, `agent.md`, `README.md`, `docs/GUIDE_developer.md`, and `CHANGELOG.md`.
+
+## 📚 Documentation Loading Guide
+
+| Task Type | Load |
+|---|---|
+| General Code Work | `agent.md` only |
+| Web / UI Features | `agent.md` + `docs/GUIDE_developer.md` (+ `docs/STANDARDS_ui-visual.md` for deep UI) |
+| Documentation Updates | `docs/ARCH_documentation-governance.md` |

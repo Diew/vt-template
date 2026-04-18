@@ -13,7 +13,7 @@ A professional, high-performance starter template tailored for **Test-Driven Dev
 
 ## 🛠️ Tech Stack
 
-- **Languge**: [TypeScript](https://www.typescriptlang.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Bundler**: [Vite](https://vitejs.dev/)
 - **Test Runner**: [Vitest](https://vitest.dev/)
 - **DOM Simulation**: [jsdom](https://github.com/jsdom/jsdom)
@@ -28,26 +28,53 @@ A professional, high-performance starter template tailored for **Test-Driven Dev
 
 ## 🕹️ Getting Started
 
-### 1. Setup
-```bash
-npm install
-```
+### As a Template (Clone & Use)
 
-### 2. Development
 ```bash
+# 1. Clone the repo
+git clone https://github.com/<your-org>/vt-template.git my-app
+cd my-app
+
+# 2. Bootstrap — replace placeholders with your project name
+node scripts/bootstrap.js "My App" 1.0.0
+
+# 3. Install dependencies
+npm install
+
+# 4. Start developing
 npm run dev
 ```
 
-### 3. Testing (TDD)
+### Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+### Testing (TDD)
+
 ```bash
 npm test
 ```
 
+## 🤖 AI-Assisted Development
+
+This template is designed to work seamlessly with AI assistants (like Roo).
+
+**For template authors**: Work on this repo normally. The `agent.md` auto-detects template mode.
+
+**For users**: After cloning, open the project with your AI assistant. It will read `agent.md` and `.template/AI_CONTEXT.md` to understand the project structure and help you initialize it immediately.
+
 ## 🏗️ Project Structure
+
 - `src/main.ts`: App entry point.
 - `src/style.css`: Stylesheet with Modern Reset.
 - `src/app.test.ts`: Sample Logic & DOM tests.
 - `vite.config.ts`: Unified build and test configuration.
+- `agent.md`: AI assistant context (auto-detects template vs project mode).
+- `.template/AI_CONTEXT.md`: Bootstrap instructions for AI assistants.
 
 ---
+
 *Built for speed, testing, and efficiency.*

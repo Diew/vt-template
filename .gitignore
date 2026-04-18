@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build output
+coverage/
+.nuxt/
+.next/
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# Vitest
+vitest.config.ts.build
+
+# Environment
+.env*.local
+.env.local
+.env.production.local
