@@ -55,6 +55,12 @@ Triggered when `package.json.name` is something OTHER than `"vt-template"` AND n
 - Skip heavy TDD for docs, copy, rename, formatting, or purely cosmetic edits.
 - If behavior might change, add or update tests first.
 
+## 🎯 Goal-Driven Execution
+Before multi-step tasks, state a brief plan:
+1. [Step] → verify: [check]
+
+Transform vague tasks into verifiable goals before starting.
+
 ## ⚠️ AI Technical Governance (CRITICAL)
 - **Build safety**: `npm run build` runs `tsc && vite build` — `tsc` must not process `*.test.ts` files.
 - **TS config**: keep `"exclude": ["src/**/*.test.ts"]` in `tsconfig.json`.
