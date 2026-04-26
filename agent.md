@@ -41,6 +41,7 @@ Triggered when `package.json.name` is something OTHER than `"vt-template"` AND n
 - `docs/` is the source of truth for behavior, architecture, and implementation rules.
 - Keep `agent.md` aligned with `docs/` and treat it as supporting context.
 - See `docs/GUIDE_developer.md` for naming conventions and coding standards.
+- **Scope unclear?** Open `docs/ARCH_documentation-governance.md` first — task→load mapping is there.
 
 ## 🌐 Language Policy (MANDATORY)
 - All docs, code comments, and agent context must be written in **English**.
@@ -56,6 +57,8 @@ Triggered when `package.json.name` is something OTHER than `"vt-template"` AND n
 - If behavior might change, add or update tests first.
 
 ## 🎯 Goal-Driven Execution
+**Principle**: verify → trace → build → confirm. Never guess → build → fix → repeat.
+
 Before multi-step tasks, state a brief plan:
 1. [Step] → verify: [check]
 
