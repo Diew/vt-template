@@ -1,5 +1,3 @@
-## [1.1.1] - 2026-04-18
-
 # Changelog
 
 All notable changes to this project will be documented in this file.

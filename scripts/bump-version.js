@@ -53,12 +53,29 @@ filesToUpdate.forEach(file => {
         content = content.replace(/\[YYYY-MM-DD\]/g, new Date().toISOString().split('T')[0]);
     } else if (file === 'CHANGELOG.md') {
         const today = new Date().toISOString().split('T')[0];
-        const changelogHeader = `## [${version}] - ${today}\n\n`;
+        const newHeader = `## [${version}] - ${today}\n\n`;
 
-        // Check if version already exists
-        if (!content.includes(changelogHeader)) {
-            content = changelogHeader + content;
+        // Smart check: don't double-prepend if header already exists
+        if (content.includes(`## [${version}]`)) {
+            console.log(`- Skipping CHANGELOG.md: Version [${version}] already exists.`);
+            return;
         }
+
+        const lines = content.split('\n');
+        // Find the index after the title (e.g., "# Changelog")
+        let insertIndex = 0;
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].toLowerCase().trim().startsWith('# changelog')) {
+                insertIndex = i + 1;
+                // Move past the optional blank line
+                if (lines[i + 1] === '') insertIndex++;
+                break;
+            }
+        }
+        
+        // Insert at the calculated position (or top if no title found)
+        lines.splice(insertIndex, 0, newHeader);
+        content = lines.join('\n');
     }
 
     writeFileSync(filePath, content);
