@@ -12,8 +12,12 @@ Rules for what goes where, when to load it, and how to name it.
 | File | Contains | Must NOT contain | Load when |
 |------|----------|-----------------|-----------|
 | `agent.md` | Mode detection, response style, failure condition, commands, milestones | Naming details, TDD depth, CSS architecture | **Always** |
-| `GUIDE_developer.md` | Naming conventions, TDD, versioning, build troubleshooting, shell constraints, basic UI (44px, tokens, layout) | Animation, banner patterns, engineering laws | Code / web features |
-| `STANDARDS_ui-visual.md` | CSS tokens, animation, layout strategy, engineering laws, banner patterns, loading UX | Coding standards, naming, TDD | Deep UI / visual work |
+| `GUIDE_developer.md` | Core rules, TDD, Zero-Loss Protocol, Progress Tracking | Reference tables, specific feature logic | Code / web features |
+| `REF_developer-reference.md` | Naming conventions, dir structure, CSS layers, shell | Active rules, feature logic | Reference check |
+| `LOGIC_*.md` | Feature-specific business rules, algorithms, edge cases | Global UI rules, CSS tokens | Feature-specific work |
+| `INCIDENT_*.md` | Post-mortem reports, root causes, lessons learned | Future feature plans | Debugging similar issues |
+| `REFACTOR_TODO.md` | Technical debt roadmap, priority items | Working code logic | Reviewing debt / planning |
+| `STANDARDS_ui-visual.md` | CSS tokens, animation, layout strategy, engineering laws | Coding standards, naming, TDD | Deep UI / visual work |
 | `ARCH_documentation-governance.md` | This file — registry, naming rules, maintenance protocol | Any implementation content | Updating / adding docs |
 
 ### Task → Load mapping
@@ -22,7 +26,11 @@ Rules for what goes where, when to load it, and how to name it.
 |------|------|
 | General code | `agent.md` |
 | Web / UI features | `agent.md` + `GUIDE_developer.md` |
-| Deep UI (animation, banners) | + `STANDARDS_ui-visual.md` |
+| Reference data | + `REF_developer-reference.md` |
+| Feature-specific work | + `LOGIC_[feature].md` |
+| Debugging / Stability | + `INCIDENT_[case].md` |
+| Debt Review | `REFACTOR_TODO.md` |
+| Deep UI (animation) | + `STANDARDS_ui-visual.md` |
 | Docs changes | `ARCH_documentation-governance.md` |
 
 ---
@@ -36,6 +44,7 @@ Prefix tells AI the scope before reading content. Use this as fallback when a fi
 | `GUIDE_` | Implementation rules | `GUIDE_css-architecture.md` |
 | `STANDARDS_` | Visual / design specs | `STANDARDS_motion.md` |
 | `LOGIC_` | Business logic, algorithms | `LOGIC_scan-engine.md` |
+| `INCIDENT_` | Post-mortem reports | `INCIDENT_auth-loop.md` |
 | `ARCH_` | System architecture, data flow | `ARCH_state-management.md` |
 | `REF_` | Reference tables, token lists | `REF_design-tokens.md` |
 

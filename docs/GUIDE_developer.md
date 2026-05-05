@@ -56,14 +56,19 @@
 | Shared helpers live in one place | If 2+ files need the same helper, it goes in a dedicated `*-helpers.ts` file — never duplicated |
 | Import direction is one-way | Helpers never import from orchestrators. Data processors never import from renderers |
 
-### Order of Operations — Splitting a File
+### Zero-Loss Refactor Protocol
 
-1. **Audit** — map all exports and identify concern groups before touching anything
-2. **Create targets** — create destination files, copy content (do not delete source yet)
-3. **Bridge** — replace source file with re-exports from destination files
-4. **Verify** — `npx tsc --noEmit` + `npm test -- --run` must both pass
-5. **Cut** — delete source file, update any imports that need explicit paths
-6. **Verify again** — repeat step 4
+Use this workflow as the default for any file split, large refactor, or structural change:
+
+1. **Audit** — Map all exports and identify concern groups before touching anything.
+2. **Create targets** — Create destination files and copy content (do not delete source yet).
+3. **Bridge** — Replace source logic with re-exports or adapters from destination files.
+4. **Verify** — `npx tsc --noEmit` + `npm test -- --run` must both pass.
+5. **Cut** — Delete source file/code and update imports to explicit paths only after behavior is stable.
+6. **Verify again** — Repeat step 4 to confirm zero data/behavior loss.
+
+> [!IMPORTANT]
+> Do not skip the **Bridge** phase. It is the primary guardrail against broken imports and partial refactors in large codebases.
 
 ### Code Structure — Starting a New File
 
@@ -87,62 +92,18 @@ Follow this order before writing implementation:
 
 ---
 
-## Naming Conventions
+### Data Orchestration — Progress Tracking
 
-All names must be self-documenting. Pattern: `[context][Purpose][Type]`
-
-| Type | Pattern | ✅ Do | ❌ Don't |
-|------|---------|-------|---------|
-| Functions | `camelCase` verb + noun | `getItemById`, `formatDateToISO` | `doStuff`, `process`, `fn1` |
-| Variables | reveal intent + type context | `itemList`, `retryCount` | `data`, `val`, `temp`, `x` |
-| Booleans | prefix `is` / `has` / `can` / `should` | `isAuthenticated`, `canDelete` | `flag`, `check` |
-| Event handlers | prefix `handle` + target + event | `handleSubmitClick`, `handleModalClose` | `onClick`, `doClick` |
-| Async functions | action-oriented, reflect what is fetched | `fetchItemList`, `deleteItemById` | `getData`, `run` |
+For long-running initialization or data hydration:
+- Use a centralized progress handler (e.g., `Tracker.setProgress(percent)`).
+- Standard checkpoints: `10%` (Start), `40%` (Data loaded), `90%` (Pre-render), `100%` (Complete).
+- Always ensure the progress bar is top-aligned and clearly visible during hydration.
 
 ---
 
 ## Reference
 
-### CSS Architecture
-
-| Layer | File pattern | Contains |
-|-------|-------------|----------|
-| Base | `tokens.css` | Design tokens, resets, layout utilities |
-| Feature layout | `[feature]-layout.css` | Structural grids and containers |
-| Feature visuals | `[feature]-visuals.css` | Thematic highlights, color injections |
-| Global effects | `effects.css` | High-fidelity animations — immutable, never optimized |
-
-### Layout
-
-| Item | Value |
-|------|-------|
-| Max width | `[1400px]` — centralized in base token file |
-| Mobile sticky stack | Topbar → Navbar → Controlbar (top to bottom) |
-| Scroll target fix | Always update `scroll-margin-top` when adding sticky components |
-
-### Versioning
-
-| Item | Detail |
-|------|--------|
-| Source of truth | `package.json` — injected at build as `__APP_VERSION__` |
-| Bump command | `npm run bump <version>` |
-| Files auto-updated | `package.json`, `agent.md`, `README.md`, `GUIDE_developer.md`, `CHANGELOG.md` |
-
-### Pre-Commit Checklist
-
-1. `npm test -- --run`
-2. Version bump if needed → `npm run bump <x.y.z>`
-3. Update `CHANGELOG.md`, confirm `agent.md` version matches
-4. `npm run build` — confirm bundle clean
-5. Remove `console.log`, resolve TODOs, verify no hardcoded colors
-
-### Shell Constraints
-
-| Shell | Notes |
-|-------|-------|
-| Default | bash / zsh |
-| PowerShell | Use `;` not `&` to chain; use `cmd /c` if profile loading blocked |
-| Required tools | Node.js LTS, npm |
+Detailed naming conventions, directory structure, and environment setup tables are moved to [REF_developer-reference.md](./REF_developer-reference.md).
 
 ---
 

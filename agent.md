@@ -37,24 +37,26 @@ Triggered when `package.json.name` is something OTHER than `"vt-template"` AND n
 - **Styling**: Vanilla CSS + CSS Variable System
 <!-- Replace Framework / Testing / Styling above if the stack differs. -->
 
-## 📚 Documentation Priority
+## 📑 Documentation Governance (Recommended)
 - `docs/` is the source of truth for behavior, architecture, and implementation rules.
-- Keep `agent.md` aligned with `docs/` and treat it as supporting context.
-- See `docs/GUIDE_developer.md` for naming conventions and coding standards.
+- **Architecture & Workflow**: `docs/GUIDE_developer.md` (Process & logic).
+- **Data & API Specs**: `docs/ARCH_technical-specs.md` (Constants & schemas).
+- **Aesthetics & UI**: `docs/STANDARDS_ui-visual.md` (Visuals & CSS tokens).
+- **Rule**: Keep visual implementation details isolated from core developer instructions to prevent accidental regressions.
+- **CSS Surgery**: Never refactor CSS without following the **Zero-Loss Refactor Protocol** in `docs/GUIDE_developer.md`.
 - **Scope unclear?** Open `docs/ARCH_documentation-governance.md` first — task→load mapping is there.
 
 ## 🌐 Language Policy (MANDATORY)
 - All docs, code comments, and agent context must be written in **English**.
 
 ## 📐 Development Strategy (MANDATORY)
-- **TDD**: write or update tests before or during implementation.
-- **Major changes**: run automated validation for structural changes.
-- **Token Efficiency**: keep context modular; use English in internal docs and agent context. Prefer minimalist, focused code to reduce token weight.
+- **Workflow**: `verify → trace → build → confirm`. Never `guess → build → fix → repeat`.
+- **TDD**: Write or update tests before or during implementation for any change affecting data, logic, or rendering.
+- **Token Efficiency**: Keep context modular. Use English in internal docs and agent context. Prefer minimalist, focused code.
 
 ### TDD Decision Rule
-- Use TDD for any change that can affect data, routing, rendering output, or business logic.
-- Skip heavy TDD for docs, copy, rename, formatting, or purely cosmetic edits.
-- If behavior might change, add or update tests first.
+- **Use TDD**: Changes affecting data integrity, routing, rendering output, or core business logic.
+- **Skip TDD**: Docs, copy, rename, formatting, or purely cosmetic edits.
 
 ## 🎯 Goal-Driven Execution
 **Principle**: verify → trace → build → confirm. Never guess → build → fix → repeat.
@@ -71,17 +73,16 @@ Transform vague tasks into verifiable goals before starting.
 - **Test isolation**: Vitest handles test runtime; do not force `tsc` to support Node-only test APIs.
 
 ## 🗣️ Response Style (CRITICAL)
-- **Short and direct by default.** No intro, no recap, no outro unless asked.
-- **Substance only.** No filler, no explanation of things not asked about.
-- Answer the question. Stop. Do not pad.
-- Use Markdown only when it genuinely helps (tables, code blocks).
-- When unsure, ask **one** clarifying question — no assumptions.
+- **Short and direct.** No intro, recap, or filler. Substance only.
+- **Writing Rules**: Drop articles (a/an/the), pleasantries, and hedging. Fragments OK.
+- **Pattern**: `[thing] [action] [reason]. [next step].`
+- **Auto-Clarity**: Revert to full sentences for security warnings or irreversible actions.
 
 ## ❌ Common Mistakes to Avoid
-- Do not refactor working code unless explicitly asked.
-- Do not change unrelated files in the same edit.
-- Do not assume; confirm before destructive actions (delete, overwrite).
-- **Naming**: All names must be self-documenting — a reader should understand what it does without reading the implementation.
+- **Changelog Vandalism**: Do not merge new work into old version entries. New task = new version header.
+- **Scope Creep**: Do not change unrelated files in the same edit.
+- **Assumptions**: Confirm before destructive actions (delete, overwrite).
+- **Naming**: Names must be self-documenting.
 
 ## 🛑 FAILURE CONDITION (CRITICAL)
 - If any rule cannot be followed: **STOP immediately**.
@@ -94,10 +95,10 @@ Transform vague tasks into verifiable goals before starting.
 
 ## 🛡️ Pre-Commit Protocol
 1. **TEST**: `npm test -- --run`.
-2. **VERSION**: verify if version bump is required; run `npm run bump <x.y.z>` if needed.
-3. **DOCS**: write release notes in `CHANGELOG.md`. Update `agent.md` if policies or milestones change. On version change, run `npm run bump -- <x.y.z>`.
+2. **BUMP**: Run `npm run bump -- <x.y.z>` **BEFORE** adding notes to ensure metadata sync.
+3. **DOCS**: Write release notes in `CHANGELOG.md` under the **new** header only.
 4. **BUILD**: `npm run build`.
-5. **CLEAN**: remove debug logs and temporary scratch files.
+5. **CLEAN**: Remove `console.log`, temporary files, and debug artifacts.
 
 ## 🏁 Milestones
 <!-- Check off items as they are completed. Add or remove items per project. -->
@@ -120,5 +121,10 @@ Transform vague tasks into verifiable goals before starting.
 | Task Type | Load |
 |---|---|
 | General Code Work | `agent.md` only |
-| Web / UI Features | `agent.md` + `docs/GUIDE_developer.md` (+ `docs/STANDARDS_ui-visual.md` for deep UI) |
+| Web / UI Features | `agent.md` + `docs/GUIDE_developer.md` |
+| Reference Data | + `docs/REF_developer-reference.md` |
+| Feature-specific Logic | + `docs/LOGIC_[feature].md` |
+| Debugging / Stability | + `docs/INCIDENT_[case].md` |
+| Deep UI / Visuals | + `docs/STANDARDS_ui-visual.md` |
+| Debt Review / Planning | `docs/REFACTOR_TODO.md` |
 | Documentation Updates | `docs/ARCH_documentation-governance.md` |
